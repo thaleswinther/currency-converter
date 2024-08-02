@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">currency-converter</string>
+    <string name="app_name">Currency Converter</string>
+    <string name="currency_converter">Currency Converter</string>
+    <string name="base_currency">Base Currency</string>
+    <string name="target_currency">Target Currency</string>
+    <string name="amount">Amount</string>
+    <string name="get_rates">Get Rates</string>
+    <string name="convert">Convert</string>
+    <string name="converted_amount">Converted Amount: %1$s %2$s</string>
+    <string name="dropdown_description">Dropdown</string>
 </resources>

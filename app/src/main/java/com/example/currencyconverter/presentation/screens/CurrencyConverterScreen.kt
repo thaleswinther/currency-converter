@@ -29,12 +29,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.currencyconverter.R
 import com.example.currencyconverter.presentation.viewmodel.CurrencyViewModel
 import java.text.DecimalFormat
 
@@ -58,14 +61,14 @@ fun CurrencyConverterScreen(viewModel: CurrencyViewModel) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Currency Converter",
+            text = stringResource(id = R.string.currency_converter),
             style = MaterialTheme.typography.h4.copy(fontSize = 30.sp),
             color = MaterialTheme.colors.primary,
             modifier = Modifier.padding(bottom = 32.dp)
         )
 
         CurrencyDropdownField(
-            label = "Base Currency",
+            label = stringResource(id = R.string.base_currency),
             selectedCurrency = baseCurrency,
             currencies = currencies,
             onCurrencySelected = { baseCurrency = it }
@@ -73,7 +76,7 @@ fun CurrencyConverterScreen(viewModel: CurrencyViewModel) {
         Spacer(modifier = Modifier.height(16.dp))
 
         CurrencyDropdownField(
-            label = "Target Currency",
+            label = stringResource(id = R.string.target_currency),
             selectedCurrency = targetCurrency,
             currencies = currencies,
             onCurrencySelected = { targetCurrency = it }
@@ -85,7 +88,7 @@ fun CurrencyConverterScreen(viewModel: CurrencyViewModel) {
             onValueChange = {
                 amount = it
             },
-            label = { Text("Amount") },
+            label = { Text(stringResource(id = R.string.amount)) },
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth()
         )
@@ -104,12 +107,12 @@ fun CurrencyConverterScreen(viewModel: CurrencyViewModel) {
                     .weight(1f)
                     .height(48.dp)
             ) {
-                Text("Get Rates")
+                Text(stringResource(id = R.string.get_rates))
             }
 
             Button(
                 onClick = {
-                    focusManager.clearFocus() // Clear focus to hide the keyboard
+                    focusManager.clearFocus()
                     rates?.let {
                         val baseRate = it[baseCurrency]
                         val targetRate = it[targetCurrency]
@@ -124,7 +127,7 @@ fun CurrencyConverterScreen(viewModel: CurrencyViewModel) {
                     .height(48.dp),
                 enabled = isRatesLoaded
             ) {
-                Text("Convert")
+                Text(stringResource(id = R.string.convert))
             }
         }
         Spacer(modifier = Modifier.height(32.dp))
@@ -132,9 +135,9 @@ fun CurrencyConverterScreen(viewModel: CurrencyViewModel) {
         conversionResult?.let {
             val formattedResult = DecimalFormat("#.####").format(it)
             Text(
-                text = "Converted Amount: $formattedResult $targetCurrency",
+                text = stringResource(id = R.string.converted_amount, formattedResult, targetCurrency),
                 style = MaterialTheme.typography.h6.copy(fontSize = 24.sp),
-                color = MaterialTheme.colors.secondary,
+                color = Color(0xFF00C853),
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
         }
@@ -166,7 +169,7 @@ fun CurrencyDropdownField(
                     IconButton(onClick = { expanded = true }) {
                         Icon(
                             imageVector = Icons.Default.ArrowDropDown,
-                            contentDescription = "Dropdown"
+                            contentDescription = stringResource(id = R.string.dropdown_description)
                         )
                     }
                 },
