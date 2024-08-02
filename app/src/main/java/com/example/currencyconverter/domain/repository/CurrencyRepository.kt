@@ -1,8 +1,8 @@
 package com.example.currencyconverter.domain.repository
 
+import com.example.currencyconverter.domain.database.AppDatabase
 import com.example.currencyconverter.domain.model.entity.Currency
 import com.example.currencyconverter.domain.retrofit.RetrofitInstance
-import com.example.currencyconverter.domain.database.AppDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -20,8 +20,9 @@ class CurrencyRepository(db: AppDatabase) {
                         rates = Currency(response.base_code, response.rates)
                         currencyDao.insertRates(rates)
                     } else {
+                        throw Exception("Failed to fetch data")
                     }
-                } catch (e: Exception) {
+                } catch (_: Exception) {
                 }
             }
             rates
